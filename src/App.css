@@ -1,8 +1,17 @@
 #root {
   max-width: 1280px;
   /* margin: 0 auto; */
-  padding: 2rem;
+  /* padding: 2rem; */
   text-align: center;
+  width: 100vw;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* overflow: hidden; */
+  height: 96vh;
+  padding: 1%;
 }
 
 .logo {

@@ -1,0 +1,45 @@
+.user {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-content: start;
+    gap: 12px;
+    padding: 3%;
+}
+
+.user-basic-details {
+    display: flex;
+    flex-direction: column;
+    /* direction: inherit; */
+    align-content: start;
+    align-items: baseline;
+}
+
+label {
+    display: inline-block;
+}
+
+input {
+    display: inline;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-container button {
+    background-color: gray;
+}
+
+.action-buttons-container button {
+    background-color: gold;
+}
+
+.green-border {
+    border: 1px solid green;
+}
+
+.red-border {
+    border: 1px solid red;
+}
