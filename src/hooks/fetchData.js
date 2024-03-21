@@ -48,6 +48,9 @@ const useFetchCombinedData = async () => {
   
       return processedUsers;
     }, [rawData, error]);
+
+    console.log(processedUsers);
+
   
     return { processedUsers, isLoading: !rawData && !error, error }; // Return relevant data
   };
