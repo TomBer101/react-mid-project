@@ -3,7 +3,7 @@ import User from './User';
 
 import '../styles/components/UsersList.css'
 
-function UsersList({users, filterTerm}) {
+function UsersList({users, filterTerm, updateUser, deleteUser, usersWithUncompletedTasks}) {
 
 
     let userComponents;
@@ -22,7 +22,7 @@ function UsersList({users, filterTerm}) {
             <User key={user.id} {...user} />
         ))
     } else {
-        userComponents = users.map(user => <User key={user.id} {...user} />);
+        userComponents = users.map(user => <User key={user.id} {...user} updateUser={updateUser} deleteUser={deleteUser} openTodos={usersWithUncompletedTasks.has(user.id.toString())}/>);
     }
 
 

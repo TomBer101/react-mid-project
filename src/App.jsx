@@ -4,7 +4,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-import { getData, combineData } from './utils/dataFunctions'
+import { getData, combineData, groupBy } from './utils/dataFunctions'
 import UsersPage from './pages/UsersPage'
 import UserPage from './pages/UserPage'
 import AddUserPage from './pages/AddUserPage'
@@ -14,7 +14,10 @@ const POSTS_URL = "https://jsonplaceholder.typicode.com/posts"
 const TODOS_URL = "https://jsonplaceholder.typicode.com/todos"
 
 function App() {
-  const [combinedData, setCombinedData] = useState([]);
+  //const [combinedData, setCombinedData] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [groupedTodos, setTodos] = useState([]);
+  const [groupedPosts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [chosenUser, setChosenUser] = useState(null);
@@ -28,14 +31,11 @@ function App() {
           getData(POSTS_URL),
           getData(TODOS_URL),
         ]);
-        // console.log(users);
-        // console.log(posts);
-        // console.log(todos);
 
+        setUsers(users);
+        setTodos(groupBy(todos, 'userId'));
+        setPosts(groupBy(posts, 'userId'));
 
-        const combinedData = combineData(users, todos, posts);
-        // console.log(combinedData);
-        setCombinedData(combinedData);
       } catch (err) {
         console.error('There was an error fetching the data: ', err);
         setError(err)
@@ -47,7 +47,32 @@ function App() {
 
     populateData();
 
+
   }, []);
+
+  const deleteUser = (userId) => {
+
+  }
+
+  const updateData = (userId, newData) => {
+
+  }
+  const usersWithUncompletedTasks = new Set();
+
+  useEffect(() => {
+
+    Object.keys(groupedTodos).forEach(userId => {
+      const todos = groupedTodos[userId];
+      const hasUncompletedTasks = todos.some(todo => !todo.completed);
+      if (hasUncompletedTasks) {
+        usersWithUncompletedTasks.add(userId);
+      }
+    });
+
+    console.log(usersWithUncompletedTasks);
+  }, [groupedTodos])
+
+
 
 
   if (isLoading) {
@@ -59,12 +84,16 @@ function App() {
   }
 
   return (
-      <div className='app'>
-        <div className="users-page-item">
-        <UsersPage users={combinedData} />
+    <div className='app'>
+      <div className="users-page-item">
+        <UsersPage
+          users={users}
+          deleteUser={deleteUser}
+          updateUser={updateData}
+          usersWithUncompletedTasks={usersWithUncompletedTasks} />
 
-        </div>
       </div>
+    </div>
 
   )
 }

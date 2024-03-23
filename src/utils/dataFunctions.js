@@ -15,3 +15,14 @@ export const combineData = (users, todos, posts) => {
 
     return result;
 }
+
+export const groupBy = (data, key) => {
+    return data.reduce((acc, item) => {
+        const keyValue = item[key];
+        if (!acc[keyValue]) {
+            acc[keyValue] = [];
+        }
+        acc[keyValue].push(item);
+        return acc;
+    }, {});
+}
