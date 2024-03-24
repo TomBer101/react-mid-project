@@ -3,7 +3,7 @@ import { useState } from 'react';
 import '../styles/components/User.css'
 
 
-const User = ({ id, name, email, address, updateUser, deleteUser, openTodos }) => {
+const User = ({ id, name, email, address, updateUser, deleteUser, openTodos, chooseUser, chosenUser }) => {
     const [expanded, setExpanded] = useState(false);
     const [user, setUser] = useState ({
         id : id,
@@ -39,9 +39,9 @@ const User = ({ id, name, email, address, updateUser, deleteUser, openTodos }) =
     }
 
     return (
-        <div className={`user ${openTodos ? 'red-border' : 'green-border'}`}>
+        <div className={`user ${openTodos ? 'red-border' : 'green-border'} ${chosenUser === id? 'chosen-user' : ''}`}>
             <div className="user-basic-details">
-                <label>ID: {id}</label> 
+                <label onClick={() => {chooseUser(id); console.log(chosenUser);}}>ID: {id}</label> 
                 <label >Name :  <input type="text" value={user.name} name="name" onChange={handleChange}/> </label>
                 <label>Email : <input type="email" value={user.email} name="email" onChange={handleChange}/> </label> 
             </div>
