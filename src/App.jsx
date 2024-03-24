@@ -20,6 +20,8 @@ function App() {
   const [groupedPosts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
+
+  const [userswithUncompletedTodos, setUserswithUncompletedTodos] = useState(new Set());
   const [chosenUser, setChosenUser] = useState(null);
 
 
@@ -51,28 +53,46 @@ function App() {
   }, []);
 
   const deleteUser = (userId) => {
+    setUsers(prevUsers => prevUsers.filter(user => user.id !== userId));
+
+    setPosts(prevPosts => {
+      delete prevPosts[userId];
+      return prevPosts;
+    });
+
+    setTodos(prevTodos => {
+      delete prevTodos[userId];
+      return prevTodos;
+    });
 
   }
 
   const updateData = (userId, newData) => {
-
+    setUsers(prevUsers => {
+      return prevUsers.map(user => {
+        if (user.id === userId) {
+          // Merge the existing user data with the new data
+          return { ...user, ...newData };
+        }
+        return user;
+      });
+    });
   }
-  const usersWithUncompletedTasks = new Set();
+
+  
 
   useEffect(() => {
-
     Object.keys(groupedTodos).forEach(userId => {
       const todos = groupedTodos[userId];
       const hasUncompletedTasks = todos.some(todo => !todo.completed);
       if (hasUncompletedTasks) {
-        usersWithUncompletedTasks.add(userId);
+        userswithUncompletedTodos.add(userId);
       }
     });
 
-    console.log(usersWithUncompletedTasks);
-  }, [groupedTodos])
-
-
+    console.log('after calal: ', userswithUncompletedTodos);
+  }
+  , [groupedTodos]);
 
 
   if (isLoading) {
@@ -90,7 +110,9 @@ function App() {
           users={users}
           deleteUser={deleteUser}
           updateUser={updateData}
-          usersWithUncompletedTasks={usersWithUncompletedTasks} />
+          chooseUser={setChosenUser}
+          chosenUser={chosenUser}
+          usersWithUncompletedTasks={userswithUncompletedTodos} />
 
       </div>
     </div>

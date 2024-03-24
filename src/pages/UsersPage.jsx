@@ -3,9 +3,9 @@ import UsersList from '../components/UsersList';
 
 import '../styles/UsersPage.css'
 
-function UsersPage({users, updateUser, deleteUser, usersWithUncompletedTasks}) {
+function UsersPage({users, updateUser, deleteUser, usersWithUncompletedTasks, chooseUser, chosenUser}) {
     const [searchTerm, setSearchTerm] = useState('');
-console.log(usersWithUncompletedTasks);
+
     const handleSearchTermChange = event => {
         setSearchTerm(event.target.value);
     }
@@ -22,6 +22,8 @@ console.log(usersWithUncompletedTasks);
                 users={users} 
                 updateUser={updateUser} 
                 deleteUser={deleteUser} 
+                chooseUser={chooseUser}
+                chosenUser={chosenUser}
                 usersWithUncompletedTasks={usersWithUncompletedTasks}/>      
         </div>
     );
