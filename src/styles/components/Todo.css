@@ -1,0 +1,21 @@
+.block {
+    border : 1px solid #800080b0;
+    text-align: justify;
+    padding: 0.5em;
+}
+
+label {
+    text-decoration-line: underline;
+    text-decoration-style: double;
+    text-decoration-color: blue;
+    margin-top: 2%;
+}
+
+.block p {
+    margin: 0;
+    display: inline;
+}
+
+.todo button {
+    float: inline-end;
+}

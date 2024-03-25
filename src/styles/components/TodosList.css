@@ -1,0 +1,10 @@
+.list-container {
+    height: 33vh;
+    overflow-y: auto;
+
+    border: 1px solid #2b2828;
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+}

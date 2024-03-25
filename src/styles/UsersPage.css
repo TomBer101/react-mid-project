@@ -1,7 +1,7 @@
 .users-page {
     border: 1px solid black;
     border-radius: 48px;
-height: 57%;
+    height: 57%;
     display: flex;
     flex-direction: column;
     padding: 5% 0;

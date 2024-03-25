@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
 
 import { getData, combineData, groupBy } from './utils/dataFunctions'
@@ -79,20 +78,23 @@ function App() {
     });
   }
 
-  
 
   useEffect(() => {
+    const openTaskUsers = new Set();
     Object.keys(groupedTodos).forEach(userId => {
       const todos = groupedTodos[userId];
       const hasUncompletedTasks = todos.some(todo => !todo.completed);
       if (hasUncompletedTasks) {
-        userswithUncompletedTodos.add(userId);
+        openTaskUsers.add(userId);
       }
     });
 
+    setUserswithUncompletedTodos(openTaskUsers)
     console.log('after calal: ', userswithUncompletedTodos);
   }
-  , [groupedTodos]);
+    , [groupedTodos]);
+
+
 
 
   if (isLoading) {
@@ -113,7 +115,12 @@ function App() {
           chooseUser={setChosenUser}
           chosenUser={chosenUser}
           usersWithUncompletedTasks={userswithUncompletedTodos} />
-
+      </div>
+      <div className="user-page-item">
+        {chosenUser && <UserPage
+          posts={groupedPosts[chosenUser]}
+          todos={groupedTodos[chosenUser]}
+          userId={chosenUser} />}
       </div>
     </div>
 

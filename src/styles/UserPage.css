@@ -1,0 +1,25 @@
+.user-page {
+    display: flex;
+    flex-direction: column;
+    /* width: 50%; */
+    max-width: 800px;
+
+    padding: 3% 0;
+    height: 90vh;
+    gap: 8px;
+  }
+  
+  .todos,
+  .posts {
+    /* flex: 1; */
+    padding: 10px;
+    height: 50%;
+  }
+
+.user-page span {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2%;
+}

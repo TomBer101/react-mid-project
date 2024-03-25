@@ -28,9 +28,9 @@ input {
     justify-content: space-between; */
 }
 
-.button-container button {
+/* .button-container button {
     background-color: gray;
-}
+} */
 
 .action-buttons-container button {
     background-color: gold;
@@ -72,3 +72,7 @@ input {
 .chosen-user {
     background-color: #e9a93391;
 }  
+
+.show-more {
+    background-color: rgb(161, 158, 158);
+}

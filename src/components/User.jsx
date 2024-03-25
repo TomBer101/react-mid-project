@@ -41,14 +41,21 @@ const User = ({ id, name, email, address, updateUser, deleteUser, openTodos, cho
     return (
         <div className={`user ${openTodos ? 'red-border' : 'green-border'} ${chosenUser === id? 'chosen-user' : ''}`}>
             <div className="user-basic-details">
-                <label onClick={() => {chooseUser(id); console.log(chosenUser);}}>ID: {id}</label> 
-                <label >Name :  <input type="text" value={user.name} name="name" onChange={handleChange}/> </label>
-                <label>Email : <input type="email" value={user.email} name="email" onChange={handleChange}/> </label> 
+                <label onClick={() => {chooseUser(id); console.log(chosenUser);}}>ID: {id}</label>
+                <div className="input-feild">
+                                    <label >Name :</label>
+                <input style={{display : "inline-block"}} type="text" value={user.name} name="name" onChange={handleChange}/> 
+                </div>
+                <div className="input-feild">
+                <label>Email :</label>
+                <input type="email" value={user.email} name="email" onChange={handleChange}/>  
+                </div>
+
             </div>
 
             <div className="button-container">
                 <div className="more-detailes">
-                    <button className="show-more" onMouseEnter={() => setExpanded(true)} onClick={() =>{setExpanded(false)} }>Other Data</button>
+                    <button className="show-more btn" onMouseEnter={() => setExpanded(true)} onClick={() =>{setExpanded(false)} }>Other Data</button>
                     <div className="extra-data" style={{display : expanded? 'flex' : 'none'}}>
                         <label>Street:<input type="text" value={address.street} name="street" onChange={handleChange}/> </label>  
                         <label >City :  <input type="text" value={address.city} name="city" onChange={handleChange}/> </label>
@@ -57,8 +64,8 @@ const User = ({ id, name, email, address, updateUser, deleteUser, openTodos, cho
                 </div>
                
                 <div className="action-buttons-container">
-                    <button onClick={handleUpdate}>Update</button>
-                    <button onClick={() => deleteUser(id)}>Delete</button>
+                    <button className='btn' onClick={handleUpdate}>Update</button>
+                    <button className='btn' onClick={() => deleteUser(id)}>Delete</button>
                 </div>
             </div>
 
