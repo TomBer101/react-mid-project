@@ -103,6 +103,25 @@ function App() {
     }
   }
 
+  const onAddPost = async (post) => {
+    try {
+      const newPost = {
+        ...post,
+        userId : chosenUser
+      }
+
+      const {data : addedPost} = await axios.post(POSTS_URL, newPost);
+      console.log('Adde post: ', addedPost);
+      setPosts(prevPosts => {
+        const newPosts = {...prevPosts};
+        newPosts[chosenUser].push(addedPost);
+        return newPosts;
+      })
+    } catch (err) {
+      console.log('There was an errror adding a post: ', err);
+    
+  }
+  }
 
   useEffect(() => {
     console.log("todos: ",groupedTodos);
@@ -120,7 +139,13 @@ function App() {
   }
     , [groupedTodos]);
 
-
+  const handleCompleteTodo = (todoId) => {
+    setTodos(prevTodos => {
+      const newTodos = {...prevTodos};
+      newTodos[chosenUser] = newTodos[chosenUser].map(todo => todo.id === todoId ? {...todo, completed : true} : todo);
+      return newTodos;
+    })
+  }
 
 
   if (isLoading) {
@@ -147,7 +172,9 @@ function App() {
           posts={groupedPosts[chosenUser]}
           todos={groupedTodos[chosenUser]}
           onAddTodo={addTodo}
-          userId={chosenUser} />}
+          onAddPost={onAddPost}
+          userId={chosenUser} 
+          markTodoCompleted={handleCompleteTodo}/>}
       </div>
     </div>
 

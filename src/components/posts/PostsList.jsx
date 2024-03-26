@@ -1,10 +1,10 @@
 import React from 'react';
 import Post from './Post';
 
-function PostsList({posts, userId}) {
+function PostsList({posts, userId, openForm}) {
     return (
         <div className="posts-list">
-            <span>Todos - User {userId} <button className='btn'>Add</button></span>
+            <span>Todos - User {userId} <button onClick={() => openForm()} className='btn'>Add</button></span>
 
             <div className='list-container'>
             {
