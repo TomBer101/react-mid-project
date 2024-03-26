@@ -9,9 +9,9 @@ const User = ({ id, name, email, address, updateUser, deleteUser, openTodos, cho
         id : id,
         name : name,
         email : email,
-        street : address.street,
-        city : address.city,
-        zipcode : address.zipcode
+        street : address?.street,
+        city : address?.city,
+        zipcode : address?.zipcode
     })
 
 
@@ -57,9 +57,9 @@ const User = ({ id, name, email, address, updateUser, deleteUser, openTodos, cho
                 <div className="more-detailes">
                     <button className="show-more btn" onMouseEnter={() => setExpanded(true)} onClick={() =>{setExpanded(false)} }>Other Data</button>
                     <div className="extra-data" style={{display : expanded? 'flex' : 'none'}}>
-                        <label>Street:<input type="text" value={address.street} name="street" onChange={handleChange}/> </label>  
-                        <label >City :  <input type="text" value={address.city} name="city" onChange={handleChange}/> </label>
-                        <label>Zip Code : <input type="email" value={address.zipcode} name="zipcode" onChange={handleChange}/> </label> 
+                        <label>Street:<input type="text" value={address?.street} name="street" onChange={handleChange}/> </label>  
+                        <label >City :  <input type="text" value={address?.city} name="city" onChange={handleChange}/> </label>
+                        <label>Zip Code : <input type="email" value={address?.zipcode} name="zipcode" onChange={handleChange}/> </label> 
                     </div>
                 </div>
                

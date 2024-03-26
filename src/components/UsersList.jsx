@@ -4,7 +4,7 @@ import User from './User';
 import '../styles/components/UsersList.css'
 
 function UsersList({users, filterTerm, updateUser, deleteUser, usersWithUncompletedTasks, chooseUser, chosenUser}) {
-
+console.log(users);
 
     let userComponents;
 

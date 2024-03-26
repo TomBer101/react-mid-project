@@ -14,7 +14,8 @@ function Todos({todos, onAddTodo, onCompleteTodo, userId}) {
                             markAsComplete={onCompleteTodo} 
                             todos={todos} 
                             userId={userId}
-                             openForm={() => setShowTodos(false)}/> :
+                            openForm={() => setShowTodos(false)}/> 
+                             :
                             <TodoForm handleCancel={() => setShowTodos(true)}
                             onAddTodo={onAddTodo}/>
             }

@@ -3,7 +3,7 @@ import UsersList from '../components/UsersList';
 
 import '../styles/UsersPage.css'
 
-function UsersPage({users, updateUser, deleteUser, usersWithUncompletedTasks, chooseUser, chosenUser}) {
+function UsersPage({users, updateUser, deleteUser, usersWithUncompletedTasks, chooseUser, chosenUser, openUserForm}) {
     const [searchTerm, setSearchTerm] = useState('');
 
     const handleSearchTermChange = event => {
@@ -14,7 +14,7 @@ function UsersPage({users, updateUser, deleteUser, usersWithUncompletedTasks, ch
         <div className='users-page'>
             <div className="users-page-header">
                 Search: <input type='text' value={searchTerm} onChange={handleSearchTermChange} />
-                <button>Add</button>
+                <button onClick={() => openUserForm()}>Add</button>
             </div>
             
             <UsersList 

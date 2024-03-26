@@ -8,6 +8,7 @@ import UsersPage from './pages/UsersPage'
 import UserPage from './pages/UserPage'
 import AddUserPage from './pages/AddUserPage'
 import axios from 'axios'
+import UserForm from './components/UserForm'
 
 const USERS_URL = "https://jsonplaceholder.typicode.com/users"
 const POSTS_URL = "https://jsonplaceholder.typicode.com/posts"
@@ -23,6 +24,7 @@ function App() {
 
   const [userswithUncompletedTodos, setUserswithUncompletedTodos] = useState(new Set());
   const [chosenUser, setChosenUser] = useState(null);
+  const [showUserForm, setShowUserForm] = useState(false);
 
 
   useEffect(() => {
@@ -84,15 +86,15 @@ function App() {
 
     try {
       const newTodo = {
-        title : todoTitle,
-        completed : false,
-        userId : chosenUser
+        title: todoTitle,
+        completed: false,
+        userId: chosenUser
       }
 
-      const {data : addedTodo} = await axios.post(TODOS_URL, newTodo);
+      const { data: addedTodo } = await axios.post(TODOS_URL, newTodo);
       console.log('Added todo: ', addedTodo);
       setTodos(prevTodos => {
-        const newTodos = {...prevTodos};
+        const newTodos = { ...prevTodos };
         newTodos[chosenUser].push(addedTodo);
         return newTodos
       }
@@ -107,24 +109,38 @@ function App() {
     try {
       const newPost = {
         ...post,
-        userId : chosenUser
+        userId: chosenUser
       }
 
-      const {data : addedPost} = await axios.post(POSTS_URL, newPost);
+      const { data: addedPost } = await axios.post(POSTS_URL, newPost);
       console.log('Adde post: ', addedPost);
       setPosts(prevPosts => {
-        const newPosts = {...prevPosts};
+        const newPosts = { ...prevPosts };
         newPosts[chosenUser].push(addedPost);
         return newPosts;
       })
     } catch (err) {
       console.log('There was an errror adding a post: ', err);
-    
+
+    }
   }
+
+  const addUser = async (user) => {
+    try {
+      console.log('User to add: ', user);
+      const {data : addedUser} = await axios.post(USERS_URL, user);
+      console.log('Added user: ', addedUser);
+      setUsers(
+        [...users, addedUser]
+      );
+    } catch (err) {
+      console.log('There was an errror adding a user: ', err);
+
+    }
   }
 
   useEffect(() => {
-    console.log("todos: ",groupedTodos);
+    console.log("todos: ", groupedTodos);
     const openTaskUsers = new Set();
     Object.keys(groupedTodos).forEach(userId => {
       const todos = groupedTodos[userId];
@@ -141,8 +157,8 @@ function App() {
 
   const handleCompleteTodo = (todoId) => {
     setTodos(prevTodos => {
-      const newTodos = {...prevTodos};
-      newTodos[chosenUser] = newTodos[chosenUser].map(todo => todo.id === todoId ? {...todo, completed : true} : todo);
+      const newTodos = { ...prevTodos };
+      newTodos[chosenUser] = newTodos[chosenUser].map(todo => todo.id === todoId ? { ...todo, completed: true } : todo);
       return newTodos;
     })
   }
@@ -165,16 +181,20 @@ function App() {
           updateUser={updateData}
           chooseUser={setChosenUser}
           chosenUser={chosenUser}
+          openUserForm={() => setShowUserForm(true)}
           usersWithUncompletedTasks={userswithUncompletedTodos} />
       </div>
       <div className="user-page-item">
-        {chosenUser && <UserPage
+        {chosenUser && !showUserForm && <UserPage
           posts={groupedPosts[chosenUser]}
           todos={groupedTodos[chosenUser]}
           onAddTodo={addTodo}
           onAddPost={onAddPost}
-          userId={chosenUser} 
-          markTodoCompleted={handleCompleteTodo}/>}
+          userId={chosenUser}
+          markTodoCompleted={handleCompleteTodo} />}
+        {
+          showUserForm && <UserForm handleAddUser={addUser} onCancel={() => setShowUserForm(false) } />
+        }
       </div>
     </div>
 

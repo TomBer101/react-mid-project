@@ -63,8 +63,10 @@ button {
 }
 
 .input-group {
-  display: inline-block;
-  text-align: right;
+  display: flex;
+  /* text-align: right; */
+  justify-content: space-between;
+  width: 75%
 }
 
 form {
@@ -74,4 +76,8 @@ form {
     align-items: center;
     justify-content: center;
     border: 1px solid black;
+}
+
+.user-page-item {
+  display: flex;
 }

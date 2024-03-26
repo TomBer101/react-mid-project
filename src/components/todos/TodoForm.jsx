@@ -14,10 +14,11 @@ function TodoForm( {onAddTodo, handleCancel}) {
         onAddTodo(title);
         setTitle('');
     }
-const onCancel = event => {
-    event.preventDefault();
-    handleCancel();
-}
+    
+    const onCancel = event => {
+        event.preventDefault();
+        handleCancel();
+    }
      
 //what is the difference or what should be my conciderations either to send the user id or to get it from the app state?
     return (
