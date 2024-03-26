@@ -7,6 +7,7 @@ import { getData, combineData, groupBy } from './utils/dataFunctions'
 import UsersPage from './pages/UsersPage'
 import UserPage from './pages/UserPage'
 import AddUserPage from './pages/AddUserPage'
+import axios from 'axios'
 
 const USERS_URL = "https://jsonplaceholder.typicode.com/users"
 const POSTS_URL = "https://jsonplaceholder.typicode.com/posts"
@@ -52,6 +53,7 @@ function App() {
   }, []);
 
   const deleteUser = (userId) => {
+    setChosenUser(null);
     setUsers(prevUsers => prevUsers.filter(user => user.id !== userId));
 
     setPosts(prevPosts => {
@@ -78,8 +80,32 @@ function App() {
     });
   }
 
+  const addTodo = async (todoTitle) => {
+
+    try {
+      const newTodo = {
+        title : todoTitle,
+        completed : false,
+        userId : chosenUser
+      }
+
+      const {data : addedTodo} = await axios.post(TODOS_URL, newTodo);
+      console.log('Added todo: ', addedTodo);
+      setTodos(prevTodos => {
+        const newTodos = {...prevTodos};
+        newTodos[chosenUser].push(addedTodo);
+        return newTodos
+      }
+      );
+
+    } catch (err) {
+      console.log('There was an errror adding a todo: ', err);
+    }
+  }
+
 
   useEffect(() => {
+    console.log("todos: ",groupedTodos);
     const openTaskUsers = new Set();
     Object.keys(groupedTodos).forEach(userId => {
       const todos = groupedTodos[userId];
@@ -120,6 +146,7 @@ function App() {
         {chosenUser && <UserPage
           posts={groupedPosts[chosenUser]}
           todos={groupedTodos[chosenUser]}
+          onAddTodo={addTodo}
           userId={chosenUser} />}
       </div>
     </div>

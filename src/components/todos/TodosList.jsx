@@ -3,10 +3,10 @@ import Todo from './Todo';
 
 import '../../styles/components/TodosList.css';
 
-function TodosList({todos, userId, markAsComplete}) {
+function TodosList({todos, userId, markAsComplete, openForm}) {
     return (
         <div className='todos-list container'>
-            <span>Todos - User {userId} <button className='btn'>Add</button></span>
+            <span>Todos - User {userId} <button className='btn' onClick={() => openForm()}>Add</button></span>
 
             <div className="list-container">
                 {

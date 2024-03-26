@@ -1,7 +1,7 @@
 import React from 'react';
 import PostsList from './PostsList';
 
-function Posts({posts, userId}) {
+function Posts({posts, userId, onAddTodo}) {
     return (
         <div className='posts'>
             <PostsList posts={posts} userId={userId}/>

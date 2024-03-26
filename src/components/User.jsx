@@ -42,11 +42,11 @@ const User = ({ id, name, email, address, updateUser, deleteUser, openTodos, cho
         <div className={`user ${openTodos ? 'red-border' : 'green-border'} ${chosenUser === id? 'chosen-user' : ''}`}>
             <div className="user-basic-details">
                 <label onClick={() => {chooseUser(id); console.log(chosenUser);}}>ID: {id}</label>
-                <div className="input-feild">
+                <div className="input-group">
                                     <label >Name :</label>
                 <input style={{display : "inline-block"}} type="text" value={user.name} name="name" onChange={handleChange}/> 
                 </div>
-                <div className="input-feild">
+                <div className="input-group">
                 <label>Email :</label>
                 <input type="email" value={user.email} name="email" onChange={handleChange}/>  
                 </div>

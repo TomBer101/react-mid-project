@@ -62,7 +62,17 @@ button {
   border-radius: 0;
 }
 
-.input-feild {
+.input-group {
   display: inline-block;
   text-align: right;
+}
+
+form {
+  height: 70%;
+    background-color: pink;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
 }
