@@ -17,8 +17,8 @@ const TODOS_URL = "https://jsonplaceholder.typicode.com/todos"
 function App() {
   //const [combinedData, setCombinedData] = useState([]);
   const [users, setUsers] = useState([]);
-  const [groupedTodos, setTodos] = useState([]);
-  const [groupedPosts, setPosts] = useState([]);
+  const [groupedTodos, setTodos] = useState({});
+  const [groupedPosts, setPosts] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -45,6 +45,8 @@ function App() {
         setError(err)
       } finally {
         setIsLoading(false);
+        console.log('TODOS finally populate data: ', groupedTodos);
+        console.log('POSTS finally populate data: ', groupedPosts);
       }
 
     }
@@ -54,8 +56,14 @@ function App() {
 
   }, []);
 
+  useEffect(() => {
+    console.log('after users changed:')
+    console.log(groupedPosts);
+    console.log(groupedTodos);
+  }, [users])
+
   const deleteUser = (userId) => {
-    setChosenUser(null);
+    setChosenUser(userId === chosenUser ? null : chosenUser);
     setUsers(prevUsers => prevUsers.filter(user => user.id !== userId));
 
     setPosts(prevPosts => {
@@ -92,7 +100,6 @@ function App() {
       }
 
       const { data: addedTodo } = await axios.post(TODOS_URL, newTodo);
-      console.log('Added todo: ', addedTodo);
       setTodos(prevTodos => {
         const newTodos = { ...prevTodos };
         newTodos[chosenUser].push(addedTodo);
@@ -113,7 +120,6 @@ function App() {
       }
 
       const { data: addedPost } = await axios.post(POSTS_URL, newPost);
-      console.log('Adde post: ', addedPost);
       setPosts(prevPosts => {
         const newPosts = { ...prevPosts };
         newPosts[chosenUser].push(addedPost);
@@ -125,23 +131,40 @@ function App() {
     }
   }
 
+  const handleChoosingUser = (userId) => {
+    setChosenUser(userId);
+    setShowUserForm(false);
+  }
+
   const addUser = async (user) => {
     try {
-      console.log('User to add: ', user);
       const {data : addedUser} = await axios.post(USERS_URL, user);
-      console.log('Added user: ', addedUser);
+      addedUser.id += users.length;
       setUsers(
         [...users, addedUser]
       );
+      setPosts(prevPosts => {
+        return { ...prevPosts, [addedUser.id]: [] };
+      });      
+      
+      setTodos(prevTodos => {
+        return { ...prevTodos, [addedUser.id]: [] };
+      });
+
+
     } catch (err) {
       console.log('There was an errror adding a user: ', err);
 
+    } finally {
+      console.log("grouped posts after user added: ",groupedPosts);
+      console.log("todos posts after user added: ",groupedTodos);
     }
   }
 
   useEffect(() => {
     console.log("todos: ", groupedTodos);
     const openTaskUsers = new Set();
+
     Object.keys(groupedTodos).forEach(userId => {
       const todos = groupedTodos[userId];
       const hasUncompletedTasks = todos.some(todo => !todo.completed);
@@ -179,7 +202,7 @@ function App() {
           users={users}
           deleteUser={deleteUser}
           updateUser={updateData}
-          chooseUser={setChosenUser}
+          chooseUser={handleChoosingUser}
           chosenUser={chosenUser}
           openUserForm={() => setShowUserForm(true)}
           usersWithUncompletedTasks={userswithUncompletedTodos} />

@@ -4,6 +4,6 @@
     margin: 2%;
     display: flex;
     flex-direction: column;
-    gap: 1%;
+    gap: 10px;
     padding-right: 2%;
 }

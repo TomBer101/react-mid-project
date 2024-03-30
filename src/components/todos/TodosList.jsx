@@ -10,7 +10,7 @@ function TodosList({todos, userId, markAsComplete, openForm}) {
 
             <div className="list-container">
                 {
-                    todos.map(todo => <Todo 
+                    todos?.map(todo => <Todo 
                         key={todo.id} 
                         completed={todo.completed} 
                         markAsComplete={markAsComplete} 

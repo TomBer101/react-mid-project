@@ -14,7 +14,7 @@ const User = ({ id, name, email, address, updateUser, deleteUser, openTodos, cho
         zipcode : address?.zipcode
     })
 
-
+console.log(openTodos);
     const handleUpdate = () => {
         const newData = {
             id : id, 
@@ -40,30 +40,30 @@ const User = ({ id, name, email, address, updateUser, deleteUser, openTodos, cho
 
     return (
         <div className={`user ${openTodos ? 'red-border' : 'green-border'} ${chosenUser === id? 'chosen-user' : ''}`}>
-            <div className="user-basic-details">
+            <div className="user-basic-details extra-data">
                 <label onClick={() => {chooseUser(id); console.log(chosenUser);}}>ID: {id}</label>
                 <div className="input-group">
-                                    <label >Name :</label>
-                <input style={{display : "inline-block"}} type="text" value={user.name} name="name" onChange={handleChange}/> 
+                                    <label >Name:</label>
+                <input  type="text" value={user.name} name="name" onChange={handleChange}/> 
                 </div>
                 <div className="input-group">
-                <label>Email :</label>
+                <label>Email:</label>
                 <input type="email" value={user.email} name="email" onChange={handleChange}/>  
                 </div>
 
             </div>
 
-            <div className="button-container">
+            <div className="">
                 <div className="more-detailes">
                     <button className="show-more btn" onMouseEnter={() => setExpanded(true)} onClick={() =>{setExpanded(false)} }>Other Data</button>
                     <div className="extra-data" style={{display : expanded? 'flex' : 'none'}}>
-                        <label>Street:<input type="text" value={address?.street} name="street" onChange={handleChange}/> </label>  
-                        <label >City :  <input type="text" value={address?.city} name="city" onChange={handleChange}/> </label>
-                        <label>Zip Code : <input type="email" value={address?.zipcode} name="zipcode" onChange={handleChange}/> </label> 
+                        <div className='input-group'><label>Street:</label><input type="text" value={address?.street} name="street" onChange={handleChange}/></div>   
+                        <div className='input-group'><label >City:</label><input type="text" value={address?.city} name="city" onChange={handleChange}/> </div>
+                        <div className='input-group'><label>Zip Code:</label><input type="email" value={address?.zipcode} name="zipcode" onChange={handleChange}/> </div> 
                     </div>
                 </div>
                
-                <div className="action-buttons-container">
+                <div className="button-container">
                     <button className='btn' onClick={handleUpdate}>Update</button>
                     <button className='btn' onClick={() => deleteUser(id)}>Delete</button>
                 </div>

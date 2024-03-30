@@ -20,12 +20,15 @@ label {
 }
 
 input {
-    display: inline;
+    /* display: inline; */
 }
 
 .button-container {
-    /* display: flex;
-    justify-content: space-between; */
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+    /* width: 100%; */
+align-self: end;
 }
 
 /* .button-container button {
@@ -38,11 +41,11 @@ input {
 }
 
 .green-border {
-    border: 1px solid green;
+    border: 2px solid green;
 }
 
 .red-border {
-    border: 1px solid red;
+    border: 2px solid red;
 }
 
 .action-buttons-container {
@@ -51,11 +54,10 @@ input {
 }
 
 .more-detailes {
-    display: flex;
-    float: inline-start;
+    /* float: inline-start;
     flex-direction: column;
     align-items: baseline;
-    margin-bottom: 3%;
+    margin-bottom: 3%; */
 }
 
 .more-detailes.expanded {
@@ -67,6 +69,10 @@ input {
 .extra-data {
     flex-direction: column;
     align-items: baseline;
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 3%;
 }
 
 .chosen-user {
@@ -75,4 +81,6 @@ input {
 
 .show-more {
     background-color: rgb(161, 158, 158);
+    float: left;
+    margin-bottom: 3%;
 }
