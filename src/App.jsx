@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import './App.css'
 
-import { getData, combineData, groupBy } from './utils/dataFunctions'
+import { getData, groupBy } from './utils/dataFunctions'
 import UsersPage from './pages/UsersPage'
 import UserPage from './pages/UserPage'
-import AddUserPage from './pages/AddUserPage'
 import axios from 'axios'
 import UserForm from './components/UserForm'
 
@@ -15,7 +13,6 @@ const POSTS_URL = "https://jsonplaceholder.typicode.com/posts"
 const TODOS_URL = "https://jsonplaceholder.typicode.com/todos"
 
 function App() {
-  //const [combinedData, setCombinedData] = useState([]);
   const [users, setUsers] = useState([]);
   const [groupedTodos, setTodos] = useState({});
   const [groupedPosts, setPosts] = useState({});
@@ -82,7 +79,6 @@ function App() {
     setUsers(prevUsers => {
       return prevUsers.map(user => {
         if (user.id === userId) {
-          // Merge the existing user data with the new data
           return { ...user, ...newData };
         }
         return user;
