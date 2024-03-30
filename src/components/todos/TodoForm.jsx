@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import '../../styles/components/TodoForm.css'
 
 function TodoForm( {onAddTodo, handleCancel}) {
     const [title, setTitle] = useState('');
@@ -20,7 +19,6 @@ function TodoForm( {onAddTodo, handleCancel}) {
         handleCancel();
     }
      
-//what is the difference or what should be my conciderations either to send the user id or to get it from the app state?
     return (
         <form className='todo-form'>
             <div className="input-group">
